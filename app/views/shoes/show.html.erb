@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<div class="show">
+<div class="shoe-display">
+  <div class="row">
+      <div class="row">
+      <% if @shoe.pictures.present?%>
+        <% @shoe.pictures.each do |shoe|%>
+            <%= image_tag shoe, class: "d-block w-100"%>
+          
+       <% end %>
+        <%else%>
+          <%= image_tag 'default.jpg', class: "d-block w-100"%>
+        <%end%>
+      </div>
+      </div>
+</div>
+
+
+<div class="description">
+<p>
+  <strong>Brand:</strong>
+  <%= @shoe.brand %>
+</p>
+
+  <p>   
+    <strong>Price:</strong>
+    <%= @shoe.price %>
+  </p>
+
+  <p>
+    <strong>Release date:</strong>
+    <%= @shoe.release_date %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @shoe.description %>
+  </p>
+
+  <p>
+    <strong>Size:</strong>
+    <%= @shoe.size %>
+  </p>
+
+</div>
+</div>
+
+<div class="user-options">
+<% if(current_user && current_user.profile && (current_user.profile.id == @shoe.seller.profile_id)) %>
+  <%= link_to 'EDIT', edit_shoe_path(@shoe), class: "btn btn-outline-secondary"%> 
+<% elsif current_user && current_account %>
+    <%= link_to 'BUY',  type="button", class: "btn btn-outline-secondary"%>
+<% end %>
+
+<%= link_to 'BACK', shoes_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<!-- buyer_page_path(shoe_id: @shoe.id, seller_id: @shoe.seller_id), -->
