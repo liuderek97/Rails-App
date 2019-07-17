@@ -25,18 +25,6 @@
   <%= @profile.phone_number %>
 </p>
 
-<% if(current_account) %>
-<div class="show">
-    <div class="shoe-display">
-      <div class="row">
-          <div class="row">
-            <% @shoe.pictures.each do |shoe|%>
-                <%= image_tag shoe, class: "d-block w-100"%>
-           <% end %>
-          </div>
-          </div>
-    </div>
-<%end%>
 
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |

@@ -1,5 +1,5 @@
 class ShoesController < ApplicationController
-  before_action :set_shoe, only: [:show, :edit, :update, :destroy]
+  before_action :set_shoe, only: [:show, :edit, :update, :destroy, :buy]
 
   # GET /shoes
   # GET /shoes.json
@@ -34,15 +34,13 @@ class ShoesController < ApplicationController
   # POST /shoes
   # POST /shoes.json
   def create
+
     @shoe = Shoe.new(shoe_params)
-    
-    
-    @seller = Seller.new
-    @seller.profile_id = current_user.profile.id
-    @seller.save
+    @shoe.seller_id = current_account.id
+
 
     
-    @shoe.seller_id = current_user.profile.seller.id
+    
 
     respond_to do |format|
       if @shoe.save
@@ -80,6 +78,12 @@ class ShoesController < ApplicationController
       format.html { redirect_to shoes_url, notice: 'Shoe was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def buy 
+  @shoe.buyer_id = current_account.id
+  @shoe.save
+  redirect_to root_path, notice: 'Product Successfully purchased'
   end
 
   private

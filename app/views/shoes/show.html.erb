@@ -46,11 +46,15 @@
 </div>
 
 <div class="user-options">
-<% if(current_user && current_user.profile && (current_user.profile.id == @shoe.seller.profile_id)) %>
+<% if current_account && current_account.id == @shoe.seller_id %>
   <%= link_to 'EDIT', edit_shoe_path(@shoe), class: "btn btn-outline-secondary"%> 
-<% elsif current_user && current_account %>
-    <%= link_to 'BUY',  type="button", class: "btn btn-outline-secondary"%>
+<% elsif current_account && !@shoe.buyer_id%>
+    <%= link_to 'BUY',  buy_shoe_path(@shoe), method: :post, class: "btn btn-outline-secondary"%>
 <% end %>
+
+<%if @shoe.buyer_id%>
+  <button type="button" class="btn btn-outline-secondary">SOLD</button>
+<%end%>
 
 <%= link_to 'BACK', shoes_path, class: "btn btn-outline-secondary" %>
 </div>
